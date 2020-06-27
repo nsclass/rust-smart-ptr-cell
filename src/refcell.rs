@@ -80,9 +80,8 @@ pub struct RefMut<'refcell, T> {
 impl<T> std::ops::Deref for RefMut<'_, T> {
     type Target = T;
     fn deref(&self) -> &Self::Target {
-        // SAFETY: a Ref is only created if no exclusive references have been given out
-        // once it is given out state is set to Shared, so no exclusive references are given out.
-        // so dereferencing into a shared reference is fine.
+        // SAFETY:
+        // see safety fro DerefMut
         unsafe { &*self.refcell.value.get() }
     }
 }
